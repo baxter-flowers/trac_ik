@@ -63,6 +63,10 @@ namespace TRAC_IK {
       return initialized;
     }
 
+    void setEpsilon(double _eps) {
+        eps = _eps;
+        reset();
+    }
 
     static double JointErr(const KDL::JntArray& arr1, const KDL::JntArray& arr2) {
       double err = 0;
@@ -94,7 +98,7 @@ namespace TRAC_IK {
     boost::posix_time::ptime start_time;
 
     bool runKDL(const KDL::JntArray &q_init, const KDL::Frame &p_in);
-
+    void reset();
 
     bool runNLOPT(const KDL::JntArray &q_init, const KDL::Frame &p_in);
 

@@ -142,8 +142,7 @@ namespace TRAC_IK {
     assert(chain.getNrOfJoints()==ub.data.size());
 
     jacsolver.reset(new KDL::ChainJntToJacSolver(chain));
-    nl_solver.reset(new NLOPT_IK::NLOPT_IK(chain,lb,ub,maxtime,eps,NLOPT_IK::SumSq));
-    iksolver.reset(new KDL::ChainIkSolverPos_TL(chain,lb,ub,maxtime,eps,true,true));
+    reset();
 
 
     for (uint i=0; i<chain.segments.size(); i++) {
@@ -168,6 +167,11 @@ namespace TRAC_IK {
                                       &io_service));
 
     initialized = true;
+  }
+
+  void TRAC_IK::reset() {
+      nl_solver.reset(new NLOPT_IK::NLOPT_IK(chain,lb,ub,maxtime,eps,NLOPT_IK::SumSq));
+      iksolver.reset(new KDL::ChainIkSolverPos_TL(chain,lb,ub,maxtime,eps,true,true));
   }
 
   bool TRAC_IK::unique_solution(const KDL::JntArray& sol) {
